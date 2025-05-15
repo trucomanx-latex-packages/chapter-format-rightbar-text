@@ -1,0 +1,199 @@
+\documentclass[a4paper,10pt]{book}
+\usepackage[utf8]{inputenc}
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+% Configuração do ambiente listings
+\lstdefinestyle{mystyle}{
+  basicstyle=\ttfamily,
+  language=[LaTeX]TeX,
+  breaklines=true,
+  columns=fullflexible,
+  frame=none,%L,%none,%single
+  numbers=none, 
+  backgroundcolor=\color{gray!10},
+  %numbers=left,
+  %numberstyle=\tiny,
+  keywordstyle=\color{green!50!black},
+  commentstyle=\color{magenta}, 
+  %stringstyle=\color{orange},
+  %identifierstyle=\color{blue},
+  %xleftmargin=2ex,
+  %xrightmargin=2ex,
+  classoffset=1,
+  morekeywords={NewEnvBoxFormalTabGlobal,DefCtxVar,SetLenCtxVar},
+  keywordstyle=\color{red!50!black},
+  classoffset=2,
+  morekeywords={lipsum,tcblistof,ding},
+  keywordstyle=\color{blue!50!black},
+  classoffset=0,
+}
+
+
+\usepackage[
+TitleColor=red,
+TitleFontSize=30,
+PreTitleColor=green,
+PreTitleFontSize=80,
+BarWidth=2cm,
+BarTopColor=blue!20,
+BarBottomColor=red!20,
+BarTextColor=white,
+BarTextFontSize=30,
+BarTextOffset=1cm,
+]{chapter-format-rightbar-text}
+\usepackage{lipsum}
+\usepackage{comment}
+\usepackage[margin=25mm]{geometry}
+\usepackage{graphicx}
+\usepackage{mdframed}
+\usepackage{wrapfig}
+
+%opening
+\title{chapter-format-rightbar-text package}
+\author{Fernando Pujaico Rivera}
+
+
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
+
+\begin{document}
+
+\maketitle
+
+%-------------------------------------------------------------------------------
+%   TABLE OF CONTENTS
+%-------------------------------------------------------------------------------
+\clearpage
+\pagestyle{empty} % No headers %\pagestyle{fancy} % Print headers again
+\tableofcontents
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Install information}\label{ch:install}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Install package}\label{sec:install}
+Put the chapter-format-rightbar-text.sty file in any of these locations
+\begin{itemize}
+\item Put the \texttt{chapter-format-rightbar-text.sty} file in the same path of main tex file, or.
+\item Execute the commmand:
+\begin{lstlisting}[style=mystyle]
+kpsewhich -var-value=TEXMFHOME
+\end{lstlisting}
+and this returns the path of local tex files. By example, if returns 
+\begin{lstlisting}[style=mystyle]
+/home/username/texmf
+\end{lstlisting}
+then, put the \texttt{chapter-format-rightbar-text.sty} file in the directory.
+\begin{lstlisting}[style=mystyle]
+/home/username/texmf/tex/latex/chapter-format-rightbar-text/chapter-format-rightbar-text.sty
+\end{lstlisting}
+\end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Install and compile when we use a custom path}
+If we put the \texttt{chapter-format-rightbar-text.sty} style file in the path \texttt{/path/of/styles}.
+Then, we need follow the next steps to compile the \texttt{maincode.tex} main tex file that use the\\% 
+\noindent\verb|\usepackage{chapter-format-rightbar-text}| code.
+\begin{lstlisting}[style=mystyle]
+export TEXINPUTS=/path/of/styles:$TEXINPUTS
+pdflatex maincode
+pdflatex maincode
+pdflatex maincode
+\end{lstlisting}
+The last commands are executed from the path of \texttt{maincode.tex} file.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Load the package}
+To load the package use the next command in the preamble of main tex document.
+\begin{lstlisting}[style=mystyle]
+\usepackage{chapter-format-rightbar-text}
+\end{lstlisting}
+
+The command \texttt{usepackage} find the \texttt{chapter-format-rightbar-text.sty} file 
+in the directories listed in the Section \ref{sec:install}.
+By other side, if we locate the \texttt{chapter-format-rightbar-text.sty} file in
+\texttt{/some/path}, then we can load the package using the next command.
+\begin{lstlisting}[style=mystyle]
+\usepackage{/some/path/chapter-format-rightbar-text}
+\end{lstlisting}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Using the package}
+They are shown some examples use of all macros in the package.
+All the code should setted before the \verb|\begin{document}|.
+The next code generates a chapter format like the used in this document.
+
+\begin{lstlisting}[style=mystyle]
+\usepackage[
+TitleColor=red,
+TitleFontSize=30,
+PreTitleColor=green,
+PreTitleFontSize=80,
+BarWidth=2cm,
+BarTopColor=blue!20,
+BarBottomColor=red!20,
+BarTextColor=white,
+BarTextFontSize=30,
+BarTextOffset=1cm,
+]
+{chapter-format-rightbar-text}
+\end{lstlisting}
+
+%%
+In the next pages will be showed the results of the next code.
+\begin{lstlisting}[style=mystyle]
+\SetChapterFormatRightBarText{Testing a text}
+\chapter{Title example of chapter with number}
+The \lipsum[1][1-4]
+\section{First title section}
+The \lipsum[1-2]
+\section{Second title section}
+The \lipsum[1-2]
+
+\SetChapterFormatRightBarText{Perfect}
+\chapter*{Title example of chapter without number}
+\addcontentsline{toc}{chapter}{Title example of chapter without number}
+The \lipsum[1][1-4]
+\section*{Third title section}
+\addcontentsline{toc}{section}{Third title section}
+The \lipsum[1-2]
+\section*{Fourth title section}
+\addcontentsline{toc}{section}{Fourth title section}
+The \lipsum[1-2]
+\end{lstlisting}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\SetChapterFormatRightBarText{Testing a text}
+\chapter{Title example of chapter with number}
+The \lipsum[1][1-4]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{First title section}
+The \lipsum[1-2]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Second title section}
+The \lipsum[1-2]
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\SetChapterFormatRightBarText{Perfect}
+\chapter*{Title example of chapter without number}
+\addcontentsline{toc}{chapter}{Title example of chapter without number}
+The \lipsum[1][1-4]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Third title section}
+\addcontentsline{toc}{section}{Third title section}
+The \lipsum[1-2]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Fourth title section}
+\addcontentsline{toc}{section}{Fourth title section}
+The \lipsum[1-2]
+
+\end{document}
